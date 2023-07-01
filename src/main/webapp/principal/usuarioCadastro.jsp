@@ -95,17 +95,64 @@
                           </div>
                       </div>
                       <!-- Page-header end -->
-                        <div class="pcoded-inner-content">
+                      <div class="pcoded-inner-content">
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
                                     <div class="page-body">
-                                        <div class="row">
                                             <!-- task, page, download counter  start -->
                                             
-                                            <h1>Conteúdo Principal</h1>
-                                         </div>
+                                            <h1>Cadastro de Usuário</h1>
+                                            <div class="row">
+	                                            <div class="col-sm-12">
+	                                                <!-- Basic Form Inputs card start -->
+	                                                <div class="card">
+	                                                    <div class="card-block">
+	                                                        <h4 class="sub-title">Dados Básicos</h4>
+				                                            <form action="<%= request.getContextPath()%>/ServletUsuarioController" method="post">
+				                                            	<div class="form-group row">
+	                                                                <label class="col-sm-1 col-form-label">ID</label>
+	                                                                <div class="col-sm-1">
+	                                                                    <input name="id" id="idUsuario" type="text" class="form-control" readonly="readonly" value="${modelLogin.id}">
+	                                                                </div>
+                                                            	</div>
+                                                            	<div class="form-group row">
+	                                                                <label class="col-sm-12 col-form-label">Nome</label>
+	                                                                <div class="col-sm-5">
+	                                                                    <input name="nome" id="nomeUsuario" type="text" class="form-control"  required="required" value="${modelLogin.nome}"
+	                                                                    placeholder="Usuário">
+	                                                                </div>
+                                                            	</div>
+                                                            	<div class="form-group row">
+	                                                                <label class="col-sm-12 col-form-label">Login</label>
+	                                                                <div class="col-sm-5">
+	                                                                    <input name="login" id="loginUsuario" type="text" class="form-control"  required="required" value="${modelLogin.login}"
+	                                                                    placeholder="Usuário">
+	                                                                </div>
+                                                            	</div>
+                                                            	<div class="form-group row">
+	                                                                <label class="col-sm-12 col-form-label">Senha</label>
+	                                                                <div class="col-sm-5">
+	                                                                    <input name="senha" id="senhaUsuario" type="password" class="form-control" required="required" value="${modelLogin.senha}"
+	                                                                    placeholder="Senha">
+	                                                                </div>
+                                                            	</div>
+                                                            	<div class="form-group row">
+	                                                                <label class="col-sm-12 col-form-label">Email</label>
+	                                                                <div class="col-sm-5">
+	                                                                    <input name="email" id="emailUsuario" type="text" class="form-control" required="required" value="${modelLogin.email}"
+	                                                                    placeholder="Email">
+	                                                                </div>
+                                                            	</div>
+                                                            	<button name="novo" id="btnNovo" class="btn btn-primary waves-effect waves-light">Novo</button>
+                                                            	<button name="salvar" id="btnSalvar" class="btn btn-success waves-effect waves-light">Salvar</button>
+                                                            	<button name="excluir" id="btnExcluir" class="btn btn-danger waves-effect waves-light">Excluir</button>
+				                                           </form>
+			                                           </div>
+		                                           </div>
+	                                           </div>
+                                           </div>
                                     </div>
                                             
                                             
@@ -165,7 +212,7 @@
     <!-- Warning Section Ends -->
     
     <!-- Required Jquery -->
-    <jsp:include page="javaScript.jsp"></jsp:include>
+   <jsp:include page="javaScript.jsp"></jsp:include>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ import model.ModelLogin;
 /**
  * @WebServlet identifica que é uma Servlet. Esse é um exemplo de classe Controle
  */
-@jakarta.servlet.annotation.WebServlet("/ServletLogin")
+@jakarta.servlet.annotation.WebServlet(urlPatterns = {"/ServletLogin", "/principal/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public ServletLogin() {
@@ -53,7 +53,7 @@ public class ServletLogin extends HttpServlet {
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
 					
 					if (url == null || url.isEmpty() || url.contains("null")) {
-						url = "principal/visaoPrincipal.jsp";
+						url = "/principal/visaoPrincipal.jsp";
 					}
 					RequestDispatcher redirecionar = request.getRequestDispatcher(url);
 					redirecionar.forward(request, response);

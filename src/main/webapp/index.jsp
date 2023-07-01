@@ -55,7 +55,7 @@
 	
 		
 	<form action="ServletLogin" method="post">
-	<input type="hidden" id="usuario" name="usuario" value="<%= request.getParameter("usuario") %>" />
+	<input type="hidden" id="url" name="usuario" value="<%= request.getParameter("url") %>" />
 	
 		<div class="sqr-login">
 		<div class="sdw-one"></div>
@@ -73,7 +73,7 @@
 		    </div>
 		  </div>
 		  <button type="submit" class="btn btn-primary" style="width:93%;">Sign in</button>
-			<h4 style="color: red;">${msg}</h4>
+			<h4 style="color: red; width:90%;font-size: 15px;margin-top:10px">${msg}</h4>
 		</div>
 	</form>
 

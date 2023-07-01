@@ -95,25 +95,7 @@
                           </div>
                       </div>
                       <!-- Page-header end -->
-                        <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
-                            <div class="main-body">
-                                <div class="page-wrapper">
-                                    <!-- Page-body start -->
-                                    <div class="page-body">
-                                        <div class="row">
-                                            <!-- task, page, download counter  start -->
-                                            
-                                            <h1>Conteúdo Principal</h1>
-                                         </div>
-                                    </div>
-                                            
-                                            
-                                    <!-- Page-body end -->
-                                </div>
-                                <div id="styleSelector"> </div>
-                            </div>
-                        </div>
+                        <h1>Conteúdo Principal</h1>
                     </div>
                 </div>
             </div>
@@ -165,7 +147,7 @@
     <!-- Warning Section Ends -->
     
     <!-- Required Jquery -->
-    <jsp:include page="javaScript.jsp"></jsp:include>
+   <jsp:include page="javaScript.jsp"></jsp:include>
 </body>
 
 </html>
