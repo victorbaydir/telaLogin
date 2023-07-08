@@ -22,6 +22,29 @@ public class ServletUsuarioController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+		String acao = request.getParameter("acao");
+		ModelLogin modelLogin = new ModelLogin();
+		modelLogin.setLogin(request.getParameter("login"));
+		
+		if (acao != null && acao.equals("deletar")) {
+			modelLogin = daoUsuarioRepository.consultarLogin(modelLogin, false);
+			if (modelLogin.getId() != null) {
+				daoUsuarioRepository.deletarUsuario(modelLogin);
+				request.setAttribute("msg", "Dados deletados com sucesso!");
+			} else {
+				throw new Exception("Nenhum usuário encontrado");
+			}
+		} 
+		
+		}catch (Exception e) {
+			request.setAttribute("msgErro", e.getMessage());
+		}
+		finally {
+			request.getRequestDispatcher("principal/usuarioCadastro.jsp").forward(request, response);
+		}
+			
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,9 +62,12 @@ public class ServletUsuarioController extends HttpServlet {
 		modelLogin.setSenha(senha);
 		
 		try {
-			daoUsuarioRepository.gravarUsuario(modelLogin);
-		} catch (SQLException e) {
+			daoUsuarioRepository.validarLogin(modelLogin, true);
+			modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			request.setAttribute("msg", "Dados gravados com sucesso!");
+		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("msgErro", e.getMessage());
 		}
 		
 		request.setAttribute("modelLogin", modelLogin);

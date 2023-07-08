@@ -110,7 +110,10 @@
 	                                                <div class="card">
 	                                                    <div class="card-block">
 	                                                        <h4 class="sub-title">Dados Básicos</h4>
-				                                            <form action="<%= request.getContextPath()%>/ServletUsuarioController" method="post">
+				                                            <form action="<%= request.getContextPath()%>/ServletUsuarioController" method="post" id="formUser">
+				                                            
+				                                            		<input name="acao" id="idAcao" type="hidden" value="">
+				                                            
 				                                            	<div class="form-group row">
 	                                                                <label class="col-sm-1 col-form-label">ID</label>
 	                                                                <div class="col-sm-1">
@@ -145,12 +148,16 @@
 	                                                                    placeholder="Email">
 	                                                                </div>
                                                             	</div>
-                                                            	<button name="novo" id="btnNovo" class="btn btn-primary waves-effect waves-light">Novo</button>
+                                                            	<button type="button" name="novo" id="btnNovo" class="btn btn-primary waves-effect waves-light" onclick="novoForm()">Novo</button>
                                                             	<button name="salvar" id="btnSalvar" class="btn btn-success waves-effect waves-light">Salvar</button>
-                                                            	<button name="excluir" id="btnExcluir" class="btn btn-danger waves-effect waves-light">Excluir</button>
+                                                            	<button type="button" name="excluir" id="btnExcluir" class="btn btn-danger waves-effect waves-light" onclick="deletar()">Excluir</button>
+                                                            	
 				                                           </form>
+				                                           
 			                                           </div>
 		                                           </div>
+		                                           <span style="display:block;color: blue; width:100%;font-size: 15px;">${msg}</span>
+                                                   <span style="display:block;color: red; width:100%;font-size: 15px;">${msgErro}</span>
 	                                           </div>
                                            </div>
                                     </div>
@@ -166,53 +173,29 @@
             </div>
         </div>
     </div>
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 10]>
-    <div class="ie-warning">
-        <h1>Warning!!</h1>
-        <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-        <div class="iew-container">
-            <ul class="iew-download">
-                <li>
-                    <a href="http://www.google.com/chrome/">
-                        <img src="<%= request.getContextPath() %>/assets/images/browser/chrome.png" alt="Chrome">
-                        <div>Chrome</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.mozilla.org/en-US/firefox/new/">
-                        <img src="<%= request.getContextPath() %>/assets/images/browser/firefox.png" alt="Firefox">
-                        <div>Firefox</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.opera.com">
-                        <img src="<%= request.getContextPath() %>/assets/images/browser/opera.png" alt="Opera">
-                        <div>Opera</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.apple.com/safari/">
-                        <img src="<%= request.getContextPath() %>/assets/images/browser/safari.png" alt="Safari">
-                        <div>Safari</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                        <img src="<%= request.getContextPath() %>/assets/images/browser/ie.png" alt="">
-                        <div>IE (9 & above)</div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <p>Sorry for the inconvenience!</p>
-    </div>
-    <![endif]-->
-    <!-- Warning Section Ends -->
     
-    <!-- Required Jquery -->
    <jsp:include page="javaScript.jsp"></jsp:include>
+   
+   <script >
+   
+   function deletar(){
+	   
+	   if (confirm('Deseja realmente deletar este registro?')) {
+		document.getElementById('formUser').method = 'get'
+		document.getElementById('idAcao').value = 'deletar'
+		document.getElementById('formUser').submit()
+	}
+   }
+   
+   	function novoForm(){
+   		document.getElementById('idUsuario').value = '';
+   		document.getElementById('nomeUsuario').value = '';
+   		document.getElementById('loginUsuario').value = '';
+   		document.getElementById('senhaUsuario').value = '';
+   		document.getElementById('emailUsuario').value = '';
+   	}
+   	
+   </script>
 </body>
 
 </html>

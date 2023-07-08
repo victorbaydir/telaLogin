@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connection.conexaoJDBC;
@@ -15,7 +16,7 @@ public class daoUsuarioRepository {
 		connection = conexaoJDBC.getConnection();
 	}
 	
-	public void gravarUsuario(ModelLogin modelLogin) throws SQLException {
+	public ModelLogin gravarUsuario(ModelLogin modelLogin) throws Exception {
 		String sql = "insert into \"modelLogin\"(login, senha, nome, email) values (?, ?, ?, ?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, modelLogin.getLogin());
@@ -26,7 +27,52 @@ public class daoUsuarioRepository {
 			preparedStatement.execute();
 			
 			connection.commit();
+			
+			
+			return this.consultarLogin(modelLogin, false);
+		}
+	
+	public ModelLogin consultarLogin(ModelLogin modelLogin, Boolean retornarExcecao) throws Exception {
+		String sql = "select * from \"modelLogin\" where login = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setString(1, modelLogin.getLogin());
+		
+		ResultSet resultado = preparedStatement.executeQuery();
+	
+		if(resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));;
+		}
+	return modelLogin;
+	}
+	
+	public void validarLogin(ModelLogin modelLogin, Boolean retornarExcecao) throws Exception {
+		String sql = "select * from \"modelLogin\" where login = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setString(1, modelLogin.getLogin());
+		
+		preparedStatement.executeQuery();
+		
+		ResultSet resultado = preparedStatement.executeQuery();
+		
+		if(resultado.next() && retornarExcecao) {
+			throw new Exception("Já existe um usuário com login: "+modelLogin.getLogin().toString());
+		} 
+	}
+	
+	public void deletarUsuario(ModelLogin modelLogin) throws Exception {
+		consultarLogin(modelLogin, null);
+		String sql = "delete from \"modelLogin\"where id = ?;";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setLong(1, modelLogin.getId());
+			preparedStatement.executeUpdate();
+			connection.commit();
 		}
 		
-	}
+}
+		
+
 
