@@ -15,7 +15,6 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 /**
  *Intercepta todas as requisições para executar fitragens(exemplo, autenticação de senhas)

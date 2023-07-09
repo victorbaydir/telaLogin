@@ -151,7 +151,7 @@
                                                             	<button type="button" name="novo" id="btnNovo" class="btn btn-primary waves-effect waves-light" onclick="novoForm()">Novo</button>
                                                             	<button name="salvar" id="btnSalvar" class="btn btn-success waves-effect waves-light">Salvar</button>
                                                             	<button type="button" name="excluir" id="btnExcluir" class="btn btn-danger waves-effect waves-light" onclick="deletar()">Excluir</button>
-                                                            	
+                                                            	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConsultaUser">Consultar</button>
 				                                           </form>
 				                                           
 			                                           </div>
@@ -174,6 +174,60 @@
         </div>
     </div>
     
+    
+    <div class="modal fade" id="modalConsultaUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <input type="hidden" value="" id="idTipoConsulta" name="nameTipoConsulta">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Consultar Usuário</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        
+	        <div class="input-group mb-3">
+		        <div class="input-group-prepend">
+		        <select id="tipoConsulta" class="btn btn-outline-secondary">
+				    <option selected value="1">Nome</option>
+				    <option value="2">Id</option>
+				  </select>
+		        
+		        </div>
+			  
+			  
+			  <input id="campoConsulta" type="text" style="padding-left: 10px" class="form-control" placeholder="Nome ou Id" aria-describedby="basic-addon1">
+				
+			  <div class="input-group-append">
+			    <button class="btn btn-outline-primary" type="button" onclick="consultarUsuario()">Consultar</button>
+			  </div>
+			  
+			</div>
+
+	        <table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">Id</th>
+			      <th scope="col">Nome</th>
+			      <th scope="col">Login</th>
+			      <th scope="col">Opções</th>
+			    </tr>
+			  </thead>
+			</table>
+	        
+	        
+	      </div>
+	      <div class="modal-footer">
+	     	<button type="button" class="btn btn-primary">Editar</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
+    
    <jsp:include page="javaScript.jsp"></jsp:include>
    
    <script >
@@ -193,6 +247,18 @@
    		document.getElementById('loginUsuario').value = '';
    		document.getElementById('senhaUsuario').value = '';
    		document.getElementById('emailUsuario').value = '';
+   	}
+   	
+   	function consultarUsuario(){
+   		var selectElement = document.getElementById("tipoConsulta");
+   	 	var selectedIndex = selectElement.selectedIndex;
+   	 	var selectedOption = selectElement.options[selectedIndex].innerText;
+   	 	
+   	 	var inputConsulta = document.getElementById("campoConsulta");
+   	 	
+   	 	inputConsulta.placeholder = selectedOption;
+   		console.log("Opção selecionada: " + selectedOption);
+   		
    	}
    	
    </script>
