@@ -1,38 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <head>
-    <title>Curso JSP </title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-      <!-- Meta -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
-      <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-      <meta name="author" content="Victor Rocha" />
-      <!-- Favicon icon -->
-      <link rel="icon" href="<%= request.getContextPath() %>/<%= request.getContextPath() %>/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-      <!-- Required Fremwork -->
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/bootstrap/css/bootstrap.min.css">
-      <!-- waves.css -->
-      <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-      <!-- themify icon -->
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/icon/themify-icons/themify-icons.css">
-      <!-- Font Awesome -->
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/icon/font-awesome/css/font-awesome.min.css">
-      <!-- scrollbar.css -->
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/jquery.mCustomScrollbar.css">
-        <!-- am chart export.css -->
-        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-      <!-- Style.css -->
-      <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/style.css">
-  </head>
+		<!-- Basic Page Info -->
+		<meta charset="utf-8" />
+		<title>Curso JSP</title>
+
+		<!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="<%= request.getContextPath() %>/resources/vendors/images/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="<%= request.getContextPath() %>/resources/vendors/images/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="<%= request.getContextPath() %>/resources/vendors/images/favicon-16x16.png"
+		/>
+
+		<!-- Mobile Specific Metas -->
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1"
+		/>
+
+		<!-- Google Font -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/vendors/styles/core.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="<%= request.getContextPath() %>/resources/vendors/styles/icon-font.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="<%= request.getContextPath() %>/resources/src/plugins/datatables/css/dataTables.bootstrap4.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="<%= request.getContextPath() %>/resources/src/plugins/datatables/css/responsive.bootstrap4.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/vendors/styles/style.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"
+		></script>
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-GBZ3SGGX85");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-NXZMQSS");
+		</script>
+		<!-- End Google Tag Manager -->
+	</head>
