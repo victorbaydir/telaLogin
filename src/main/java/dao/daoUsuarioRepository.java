@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 import connection.conexaoJDBC;
 import model.ModelLogin;
@@ -47,6 +48,24 @@ public class daoUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));;
 		}
 	return modelLogin;
+	}
+	
+	public List<ModelLogin> consultarUserPorLogin(String login, Boolean retornarExcecao) throws Exception {
+		String sql = "select * from \"modelLogin\" where login ilike ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setString(1, login);
+		
+		ResultSet resultado = preparedStatement.executeQuery();
+		List<ModelLogin> listaModelLogin = new ArrayList<>();
+		while(resultado.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setNome(resultado.getString("nome"));
+			listaModelLogin.add(modelLogin);
+		}
+	return listaModelLogin;
 	}
 	
 	public void validarLogin(ModelLogin modelLogin, Boolean retornarExcecao) throws Exception {
