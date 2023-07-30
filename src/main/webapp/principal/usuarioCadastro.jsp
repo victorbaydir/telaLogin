@@ -10,7 +10,7 @@
 	<!--Formulário de Cadastro de Usuário -->
 	<main>
 		<form id="formUser" action="<%=request.getContextPath()%>/ServletUsuarioController"
-			method="post" id="formUser">
+			method="post" id="formUser" enctype="multipart/form-data">
 			<input name="acao" id="idAcao" type="hidden" value="">
 			<div class="title">
 				<h1>Cadastro de Usuário</h1>
@@ -47,6 +47,56 @@
 						type="text" class="form-control">
 				</div>
 			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Foto de Perfil</label>
+					<div class="input-group mb-3">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" name="arquivoFoto" id="arquivoFoto">
+							<label class="custom-file-label" for="arquivoFoto">${modelLogin.arquivo.nomeArquivo}</label>
+						</div>
+					</div>
+
+				</div>
+				<div class="form-group col-md-4">
+				<label></label>
+					<div class="input-group-append">
+						<button onclick="enviarFoto()" class="btn btn-outline-secondary" type="button">Enviar</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>CEP</label> <input onblur="pesquisacep(this.value);" placeholder="CEP"
+						value="${modelLogin.cep}" name="cep" id="cepUsuario" 
+						type="text" class="form-control" >
+				</div>
+				<div class="form-group col-md-8">
+					<label>Logradouro</label> <input placeholder="Logradouro"
+						value="${modelLogin.logradouro}" name="logradouro" id="logradouroUsuario" 
+						type="text" class="form-control" >
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label>Bairro</label> <input placeholder="Bairro"
+						value="${modelLogin.bairro}" name="bairro" id="bairroUsuario" 
+						type="text" class="form-control" >
+				</div>
+				<div class="form-group col-md-4">
+					<label>Cidade</label> <input placeholder="Cidade"
+						value="${modelLogin.cidade}" name="cidade" id="cidadeUsuario" 
+						type="text" class="form-control" >
+				</div>
+				<div class="form-group col-md-4">
+					<label>UF</label> <input placeholder="Bairro"
+						value="${modelLogin.uf}" name="uf" id="ufUsuario" 
+						type="text" class="form-control" >
+				</div>
+			</div>
+			<div class="form-row">
+				
+			</div>
 			<button name="novo" id="btnNovo" onclick="novoForm()" type="button"
 				class="btn btn-info">
 				<div>
@@ -70,6 +120,7 @@
 					<span class="material-symbols-outlined"> search </span> Consultar
 				</div>
 			</button>
+			
 		</form>
 		<span
 			style="display: block; color: blue; width: 100%; font-size: 15px;">${msg}</span>
@@ -129,24 +180,28 @@
 		function consultar() {
 			var url = document.querySelector('#formUser').action
 			var loginConsultar = document.querySelector('#loginConsultar').value
-			$.ajax({
-				url: url+"?acao=consultarUserTodos&loginConsultar="+loginConsultar,
-				type: "GET",
-				dataType: "json",
-				success: function(data) {
-					// Limpa a tabela antes de preenchê-la novamente
-					$("#tabelaResultado tbody").empty();
-					
-					// Preenche a tabela com os resultados recebidos em formato JSON
-					for (var i = 0; i < data.length; i++) {
-						var row = "<tr><td>" + data[i].id + "</td><td>" + data[i].nome + "</td><td>" + data[i].login + "</td></tr>";
-						$("#tabelaResultado tbody").append(row);
+			if (loginConsultar != '') {
+				$.ajax({
+					url: url+"?acao=consultarUserTodos&loginConsultar="+loginConsultar,
+					type: "GET",
+					dataType: "json",
+					success: function(data) {
+						// Limpa a tabela antes de preenchê-la novamente
+						$("#tabelaResultado tbody").empty();
+						
+						// Preenche a tabela com os resultados recebidos em formato JSON
+						for (var i = 0; i < data.length; i++) {
+							var row = "<tr><td>" + data[i].id + "</td><td>" + data[i].nome + "</td><td>" + data[i].login + "</td><td><button onclick=\"editarUsuario("+data[i].id+")\" type=\"button\" class=\"btn btn-info\" data-dismiss=\"modal\">Editar</button></td></tr>";
+							$("#tabelaResultado tbody").append(row);
+						}
+					},
+					error: function() {
+						alert("Erro ao realizar a consulta."); // Adicione uma mensagem de erro apropriada.
 					}
-				},
-				error: function() {
-					alert("Erro ao realizar a consulta."); // Adicione uma mensagem de erro apropriada.
-				}
-			});
+				});
+			} else {
+				alert('Para consultar, digite o LOGIN de um Usuário')
+			}
 		}
 	
 		function deletar(){
@@ -166,7 +221,60 @@
 	   		document.getElementById('emailUsuario').value = '';
 	   	}
 	   	
-  
+	   	function editarUsuario(id){
+	   		var url = document.querySelector('#formUser').action
+	   		window.location.href = url+'?acao=editarUsuario&id='+id
+	   	}
+  		
+	   	function enviarFoto(){
+// 	   		let caminhoArquivo = document.querySelector('#arquivoFoto').value
+// 	   		document.getElementById('idAcao').value = 'uploadFoto'
+// 			document.getElementById('formUser').submit()
+	   	}
+	   	
+	   	function pesquisacep(valor) {
+	        var cep = valor.replace(/\D/g, '');
+	        
+	        if (cep != "") {
+	            var validacep = /^[0-9]{8}$/; //Expressão regular para validar o CEP.
+	            
+	            if(validacep.test(cep)) {
+	                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            $("#logradouroUsuario").val(dados.logradouro);
+                            $("#bairroUsuario").val(dados.bairro);
+                            $("#cidadeUsuario").val(dados.localidade);
+                            $("#ufUsuario").val(dados.uf);
+                        } //end if.
+                        else {
+                            alert("CEP não encontrado.");
+                        }
+                        console.log(dados);
+                    });
+	            }
+	            else {
+	                alert("Formato de CEP inválido.");
+	            }
+	        }
+	   	}
+	   	
+// 	   	function meu_callback(conteudo) {
+// 	        if (!("erro" in conteudo)) {
+// 	            //Atualiza os campos com os valores.
+// 	            document.getElementById('rua').value=(conteudo.logradouro);
+// 	            document.getElementById('bairro').value=(conteudo.bairro);
+// 	            document.getElementById('cidade').value=(conteudo.localidade);
+// 	            document.getElementById('uf').value=(conteudo.uf);
+// 	            document.getElementById('ibge').value=(conteudo.ibge);
+// 	        } //end if.
+// 	        else {
+// 	            //CEP não Encontrado.
+// 	            limpa_formulário_cep();
+// 	            alert("CEP não encontrado.");
+// 	        }
+// 	    }
+	   	
    </script>
    
 	</body>
