@@ -15,6 +15,8 @@ import jakarta.servlet.http.Part;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import java.io.PrintWriter;
+
+import model.Arquivo;
 import model.ModelLogin;
 import java.lang.Long;
 import java.nio.file.Files;
@@ -22,8 +24,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import jakarta.servlet.annotation.MultipartConfig;
-
-
+import dao.daoArquivoRepository;
 import dao.daoUsuarioRepository;
 
 @MultipartConfig
@@ -32,6 +33,7 @@ public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private daoUsuarioRepository daoUsuarioRepository = new daoUsuarioRepository();
+	private daoArquivoRepository daoArquivoRepository = new daoArquivoRepository();
 
     public ServletUsuarioController() {
     }
@@ -118,19 +120,22 @@ public class ServletUsuarioController extends HttpServlet {
 	            	if (!file.exists()) { // Verifica se o diretório existe, e caso não existe cria um
 						file.mkdir();
 					}
-	            	modelLogin.getArquivo().setNome(fileName);
-	            	modelLogin.getArquivo().setCaminho(uploadDir);
 	                Files.copy(fileContent, Paths.get(uploadDir, fileName));
 	                
+	                Arquivo arquivo = new Arquivo();
+	                arquivo.setNome(fileName);
+	                arquivo.setCaminho(uploadDir);
+	                arquivo.setModelLogin(modelLogin);
+	                daoArquivoRepository.inserirArquivo(arquivo);
 	                acao = "";
 	            }
 			} else {
 				daoUsuarioRepository.persistirUsuario(modelLogin); //Método usado para incluir ou atualizar usuario
 				
-				request.setAttribute("msg", "Dados gravados com sucesso!");
-				request.setAttribute("modelLogin", modelLogin);
-				request.getRequestDispatcher("principal/usuarioCadastro.jsp").forward(request, response);
 			}
+			request.setAttribute("msg", "Dados gravados com sucesso!");
+			request.setAttribute("modelLogin", modelLogin);
+			request.getRequestDispatcher("principal/usuarioCadastro.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

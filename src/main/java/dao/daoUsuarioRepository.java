@@ -130,13 +130,19 @@ public class daoUsuarioRepository {
 	
 	public void atualizarUsuario(ModelLogin modelLogin) throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("update \"modelLogin\" set login=?, senha=?, nome=?, email=? where id = ?;");
+		sql.append(" update \"modelLogin\" set login=?, senha=?, nome=?, email=?, cep=?,");
+		sql.append(" logradouro=?, bairro=?, cidade=?, uf=? where id = ?;");
 		PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 		preparedStatement.setString(1, modelLogin.getLogin());
 		preparedStatement.setString(2, modelLogin.getSenha());
 		preparedStatement.setString(3, modelLogin.getNome());
 		preparedStatement.setString(4, modelLogin.getEmail());
-		preparedStatement.setLong(5, modelLogin.getId());
+		preparedStatement.setString(5, modelLogin.getCep());
+		preparedStatement.setString(6, modelLogin.getLogradouro());
+		preparedStatement.setString(7, modelLogin.getBairro());
+		preparedStatement.setString(8, modelLogin.getCidade());
+		preparedStatement.setString(9, modelLogin.getUf());
+		preparedStatement.setLong(10, modelLogin.getId());
 		
 		preparedStatement.execute();
 		

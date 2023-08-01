@@ -16,14 +16,12 @@ public class daoArquivoRepository {
 		connection = conexaoJDBC.getConnection();
 	}
 	
-	public void gravarArquivo(ModelLogin modelLogin) throws SQLException {
-		Arquivo arquivo = new Arquivo();
-		arquivo.setNome(modelLogin.getNome());
-		arquivo.setCaminho(modelLogin.getArquivo().getCaminho());
-		String sql = "insert into \"arquivo\"(nome, caminho) values(?, ?) ";
+	public void inserirArquivo(Arquivo arquivo) throws SQLException {
+		String sql = "insert into \"arquivo\"(nome, caminho, modelLogin) values(?, ?, ?) ";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, modelLogin.getArquivo().getNome());
-			preparedStatement.setString(2, modelLogin.getArquivo().getCaminho());
+			preparedStatement.setString(1, arquivo.getNome());
+			preparedStatement.setString(2, arquivo.getCaminho());
+			preparedStatement.setInt(3, arquivo.getModelLogin().getId().intValue());
 			
 			preparedStatement.execute();
 			

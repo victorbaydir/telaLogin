@@ -52,17 +52,11 @@
 					<label>Foto de Perfil</label>
 					<div class="input-group mb-3">
 						<div class="custom-file">
-							<input type="file" class="custom-file-input" name="arquivoFoto" id="arquivoFoto">
+							<input onchange="enviarFoto()" type="file" class="custom-file-input" name="arquivoFoto" id="arquivoFoto">
 							<label class="custom-file-label" for="arquivoFoto">${modelLogin.arquivo.nomeArquivo}</label>
 						</div>
 					</div>
 
-				</div>
-				<div class="form-group col-md-4">
-				<label></label>
-					<div class="input-group-append">
-						<button onclick="enviarFoto()" class="btn btn-outline-secondary" type="button">Enviar</button>
-					</div>
 				</div>
 			</div>
 			<div class="form-row">
@@ -227,9 +221,9 @@
 	   	}
   		
 	   	function enviarFoto(){
-// 	   		let caminhoArquivo = document.querySelector('#arquivoFoto').value
-// 	   		document.getElementById('idAcao').value = 'uploadFoto'
-// 			document.getElementById('formUser').submit()
+	   		let caminhoArquivo = document.querySelector('#arquivoFoto').value
+	   		document.getElementById('idAcao').value = 'uploadFoto'
+			document.getElementById('formUser').submit()
 	   	}
 	   	
 	   	function pesquisacep(valor) {
